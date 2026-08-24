@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Ma Carte Fictive 3D</title>
+  <title>Selarian</title>
   <!-- Charger CesiumJS -->
   <script src="https://cesium.com"></script>
   <link href="https://cesium.com" rel="stylesheet">
@@ -23,7 +23,7 @@
 
     // Chargement automatique de votre fichier KMZ hébergé au même endroit
     // REMPLACEZ 'ma-carte.kmz' PAR LE NOM EXACT DE VOTRE FICHIER CI-DESSOUS
-    viewer.dataSources.add(Cesium.KmlDataSource.load('./ma-carte.kmz', {
+    viewer.dataSources.add(Cesium.KmlDataSource.load('./Selarian.kmz', {
       camera: viewer.scene.camera,
       canvas: viewer.scene.canvas
     })).then(function(dataSource){
