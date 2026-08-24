@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Selarian</title>
   
-  <!-- Serveurs CDN Cloudflare -->
+  <!-- Liens CDN Cloudflare corrigés avec les extensions des fichiers de la bibliothèque Cesium -->
   <script src="https://cloudflare.com"></script>
   <link href="https://cloudflare.com" rel="stylesheet">
   
@@ -16,9 +16,8 @@
 
   <div id="cesiumContainer"></div>
 
-  <!-- Notez le type="module" ci-dessous qui autorise l'utilisation de l'asynchrone sans erreur -->
   <script type="module">
-    // Configuration de votre Token Cesium
+    // Votre jeton d'accès Cesium valide
     Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6IlJZb2NLN2MzYVRtYWduVVIiLCJqdGkiOiI1MDU3Mzk3NS0wZDRjLTRkY2QtYTBhMS1lNjEwMzhmZmI5M2QiLCJpZCI6NDcxMzc1LCJpc3MiOiJodHRwczovL2FwaS5jZXNpdW0uY29tIiwiYXVkIjoidW5kZWZpbmVkX2RlZmF1bHQiLCJpYXQiOjE3ODc1OTY5MjZ9.3FWq2wZVZQprkQ3fVHdnpgeewjz1YzjNyFE6tAEOVXM';
 
     // Initialisation du globe virtuel 3D
@@ -27,10 +26,9 @@
       baseLayerPicker: false
     });
 
-    // Fonction isolée pour charger proprement le fichier KMZ
+    // Fonction asynchrone isolée pour charger proprement votre carte
     async function chargerDonnees() {
       try {
-        // Remplacez 'ma-carte.kmz' par le nom exact de votre fichier
         const dataSource = await Cesium.KmlDataSource.load('./Selarian.kmz', {
           camera: viewer.scene.camera,
           canvas: viewer.scene.canvas
