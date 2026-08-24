@@ -2,37 +2,39 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Selarian</title>
+  <title>Ma Carte Fictive 3D</title>
   
-  <!-- Nouveaux liens officiels et stables pour CesiumJS -->
-  <script src="https://cesium.com"></script>
-  <link href="https://cesium.com" rel="stylesheet">
+  <!-- Serveurs CDN sécurisés de Cloudflare (Acceptés à 100% par GitHub) -->
+  <script src="https://cloudflare.com"></script>
+  <link href="https://cloudflare.com" rel="stylesheet">
   
   <style>
     html, body, #cesiumContainer { width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden; }
   </style>
 </head>
-
 <body>
 
   <div id="cesiumContainer"></div>
 
   <script>
-    // Initialisation du globe virtuel
+    // Initialisation du globe avec un fond neutre pour éviter le besoin d'une clé API
     const viewer = new Cesium.Viewer('cesiumContainer', {
       sceneModePicker: false,
-      baseLayerPicker: false
+      baseLayerPicker: false,
+      imageryProvider: new Cesium.OpenStreetMapImageryProvider({
+        url : 'https://openstreetmap.org'
+      })
     });
 
-    // Chargement automatique de votre fichier KMZ hébergé au même endroit
-    // REMPLACEZ 'ma-carte.kmz' PAR LE NOM EXACT DE VOTRE FICHIER CI-DESSOUS
+    // Chargement automatique de votre fichier KMZ 
+    // ATTENTION : Remplacez 'ma-carte.kmz' par le nom EXACT de votre fichier sur GitHub
     viewer.dataSources.add(Cesium.KmlDataSource.load('./Selarian.kmz', {
       camera: viewer.scene.camera,
       canvas: viewer.scene.canvas
     })).then(function(dataSource){
       viewer.zoomTo(dataSource);
     }).catch(function(error){
-      console.error("Erreur de chargement du KMZ :", error);
+      console.error("Erreur d'ouverture du fichier KMZ :", error);
     });
   </script>
 </body>
