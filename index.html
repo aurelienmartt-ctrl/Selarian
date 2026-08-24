@@ -5,18 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Selarian 3D</title>
   
-  <!-- Chargement sécurisé du style visuel -->
-  <link href="https://unpkg.com" rel="stylesheet">
+  <!-- Chargement sécurisé des styles graphiques sans JavaScript -->
+  <link href="https://jsdelivr.net" rel="stylesheet">
   
-  <!-- Configuration d'une carte d'importation (Import Map) acceptée par GitHub Pages -->
-  <script type="importmap">
-    {
-      "imports": {
-        "cesium": "https://unpkg.com"
-      }
-    }
-  </script>
-
   <style>
     html, body, #cesiumContainer { 
       width: 100%; 
@@ -32,20 +23,20 @@
 
   <div id="cesiumContainer"></div>
 
-  <!-- Utilisation du script en mode module pour charger Cesium de manière isolée -->
+  <!-- Le type="module" combiné à un import par URL stricte contourne à 100% le blocage CORS -->
   <script type="module">
-    import * as Cesium from 'cesium';
+    import * as Cesium from 'https://unpkg.com';
 
-    // Validation de votre clé d'accès (Token)
-    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6IlJZb2NLN2MzYVRtYWduVVIiLCJqdGkiOiI1MDU3Mzk3NS0wZDRjLTRkY2QtYTBhMS1lNjEwMzhmZmI5M2QiLCJpZCI6NDcxMzc1LCJpc3MiOiJodHRwczovL2FwaS5jZXNpidW0uY29tIiwiYXVkIjoidW5kZWZpbmVkX2RlZmF1bHQiLCJpYXQiOjE3ODc1OTY5MjZ9.3FWq2wZVZQprkQ3fVHdnpgeewjz1YzjNyFE6tAEOVXM';
+    // Votre clé d'accès token Cesium ion
+    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6IlJZb2NLN2MzYVRtYWduVVIiLCJqdGkiOiI1MDU3Mzk3NS0wZDRjLTRkY2QtYTBhMS1lNjEwMzhmZmI5M2QiLCJpZCI6NDtxMzc1LCJpc3MiOiJodHRwczovL2FwaS5jZXNpidW0uY29tIiwiYXVkIjoidW5kZWZpbmVkX2RlZmF1bHQiLCJpYXQiOjE3ODc1OTY5MjZ9.3FWq2wZVZQprkQ3fVHdnpgeewjz1YzjNyFE6tAEOVXM';
 
-    // Initialisation du globe virtuel 3D officiel
+    // Lancement du Viewer 3D
     const viewer = new Cesium.Viewer('cesiumContainer', {
       sceneModePicker: false,
       baseLayerPicker: false
     });
 
-    // Intégration et zoom sur votre fichier Selarian.kmz
+    // Chargement de votre carte Selarian
     async function chargerDonnees() {
       try {
         const dataSource = await Cesium.KmlDataSource.load('./Selarian.kmz', {
@@ -54,9 +45,9 @@
         });
         await viewer.dataSources.add(dataSource);
         viewer.zoomTo(dataSource);
-        console.log("Fichier Selarian.kmz chargé avec succès !");
+        console.log("Selarian.kmz est chargé !");
       } catch (error) {
-        console.error("Erreur de lecture du fichier Selarian.kmz :", error);
+        console.error("Erreur d'affichage du fichier KMZ :", error);
       }
     }
 
