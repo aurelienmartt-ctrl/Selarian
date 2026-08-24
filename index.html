@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Ma Carte Fictive 3D</title>
+  <!-- Charger CesiumJS -->
+  <script src="https://cesium.com"></script>
+  <link href="https://cesium.com" rel="stylesheet">
+  <style>
+    html, body, #cesiumContainer { width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden; }
+  </style>
+</head>
+<body>
+
+  <div id="cesiumContainer"></div>
+
+  <script>
+    // Initialisation du globe virtuel
+    const viewer = new Cesium.Viewer('cesiumContainer', {
+      sceneModePicker: false,
+      baseLayerPicker: false
+    });
+
+    // Chargement automatique de votre fichier KMZ hébergé au même endroit
+    // REMPLACEZ 'ma-carte.kmz' PAR LE NOM EXACT DE VOTRE FICHIER CI-DESSOUS
+    viewer.dataSources.add(Cesium.KmlDataSource.load('./ma-carte.kmz', {
+      camera: viewer.scene.camera,
+      canvas: viewer.scene.canvas
+    })).then(function(dataSource){
+      viewer.zoomTo(dataSource);
+    }).catch(function(error){
+      console.error("Erreur de chargement du KMZ :", error);
+    });
+  </script>
+</body>
+</html>
