@@ -3,45 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Selarian Interactive</title>
-  
+  <title>Selarian 3D</title>
   <style>
-    /* La carte prend tout l'écran */
-    html, body, #map { width: 100%; height: 100%; margin: 0; padding: 0; background-color: #111; }
+    /* Supprime les marges et force le cadre à prendre tout l'écran */
+    html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
+    iframe { width: 100%; height: 100%; border: none; }
   </style>
 </head>
 <body>
 
-  <div id="map"></div>
-
-  <script>
-    // Initialisation dynamique sans serveur externe bloqué
-    function initMap() {
-      // Création de la carte centrée
-      const map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 2,
-        center: { lat: 0, lng: 0 },
-        mapTypeId: "satellite" // Utilise la vue satellite (globe) de Google
-      });
-
-      // Chargement direct et sécurisé de votre fichier KMZ depuis votre GitHub
-      // Note : Google Maps télécharge le fichier côté serveur, le CORS ne peut pas bloquer !
-      const kmlUrl = "https://github.io"; 
-      
-      const kmlLayer = new google.maps.KmlLayer({
-        url: kmlUrl,
-        suppressInfoWindows: false,
-        map: map
-      });
-
-      kmlLayer.addListener("status_changed", () => {
-        console.log("Statut du KMZ :", kmlLayer.getStatus());
-      });
-    }
-  </script>
-
-  <!-- Chargement de l'API Google Maps officielle (Autorisée partout sur internet) -->
-  <script src="https://googleapis.com" async defer></script>
-
+  <!-- REMPLACEZ l'adresse ci-dessous par l'URL de partage exacte fournie par Cesium ion -->
+  <iframe src="https://sandcastle.cesium.com/#c=bZFbc9owEIX/isZPZCYjYlPT0kKmKZBEFJvhEoM9fhGyCPJFciQZF3fy3zvG0PSSx939ztFZbbsNHiTmGgypYkU2WQJMCFUKaAGOopCACQ6wUlSrkDcMRILDiO5wkeq7E7wSCeVgAEKDHif77QNhMzZBTxUyXYYU4gubDFEXJfnGG056kB4nxday42CJuiidBFvLnbqWU/neQvvrqPA8xKbDyUv0kLAZQ6Yzeuo4VdJxlzdlMFrE09Ui8a259lff9s7STN14XDrVPgsyZDvWvNbmwRB13RH54VTErGvScepQInpclKQSh6l1X+KlHQcbN4/WN4Vv9TRiJfM3XoJiwaK1nQTrIN9mXrKxFmmQ3Zvbx8bb38zZLB53ZiNizla+7cRBD3bu1y9WGXjBPJfJvLPzHiOeP1NaxpXpV7F7vB939d145m2c0PgS8pATwZUGB0ZLKsEAcFqejwC9U68VGuRUDwXXmHEqQ+PqpNTyCH6GHIDGQlIlCkkoGABcYna5ZX2nxXkEd1Jkd/UZUdSyTfvjp96H2utiEWGNl++afM/S0e8hTAWOWpf3rpsQABCcUYk/n3eBilBOYdO8vhD8gNV/RN08Ea9NmOblM/SWSUEcRa23+h24EiJbiX+YV0CwJnvQolIKefX2ZyKtV3k+92sy5Ma10Vf6mNLbmvrKslxIDQqZtiBsa5rlKdZUtbcFSaiGRKla129fJP2IHQCLBu8cDZAUKzUIjV2RpktW0dC47bcjdvhLVn8t48+zA5UpPobGKUZ/b95OmwGEsN/em7XmP60WIt1i+YfvLw
 </body>
 </html>
