@@ -2,14 +2,22 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Selarian</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selarian 3D</title>
   
-  <!-- Chargeur officiel universel fourni par Cesium -->
-  <script src="https://cesium.com"></script>
-  <link href="https://cesium.com" rel="stylesheet">
+  <!-- CDNs jsDelivr stables et approuvés par GitHub Pages -->
+  <link href="https://jsdelivr.net" rel="stylesheet">
+  <script src="https://jsdelivr.net"></script>
   
   <style>
-    html, body, #cesiumContainer { width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden; }
+    html, body, #cesiumContainer { 
+      width: 100%; 
+      height: 100%; 
+      margin: 0; 
+      padding: 0; 
+      overflow: hidden; 
+      background-color: #000;
+    }
   </style>
 </head>
 <body>
@@ -17,27 +25,32 @@
   <div id="cesiumContainer"></div>
 
   <script>
-    // Cette fonction attend que toute la page et Cesium soient chargés dans le navigateur
-    window.addEventListener('load', function() {
+    // Sécurité : On attend que le script de la bibliothèque Cesium soit totalement initialisé
+    window.addEventListener('DOMContentLoaded', () => {
       
-      // Enregistrement de votre clé d'accès (Token)
-      Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6IlJZb2NLN2MzYVRtYWduVVIiLCJqdGkiOiI1MDU3Mzk3NS0wZDRjLTRkY2QtYTBhMS1lNjEwMzhmZmI5M2QiLCJpZCI6NDcxMzc1LCJpc3MiOiJodHRwczovL2FwaS5jZXNpidW0uY29tIiwiYXVkIjoidW5kZWZpbmVkX2RlZmF1bHQiLCJpYXQiOjE3ODc1OTY5MjZ9.3FWq2wZVZQprkQ3fVHdnpgeewjz1YzjNyFE6tAEOVXM';
+      if (typeof Cesium === 'undefined') {
+        console.error("Cesium n'a pas pu être chargé par le navigateur.");
+        return;
+      }
 
-      // Lancement du globe terrestre virtuel 3D
+      // Configuration de votre Token d'accès Cesium ion
+      Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6IlJZb2NLN2MzYVRtYWduVVIiLCJqdGkiOiI1MDU3Mzk3NS0wZDRjLTRkY2QtYTBhMS1lNjEwMzhmZmI5M2QiLCJpZCI6NDcxMzc1LCJpc3MiOiJodHRwczovL2FwaS5jZXNpdW0uY29tIiwiYXVkIjoidW5kZWZpbmVkX2RlZmF1bHQiLCJpYXQiOjE3ODc1OTY5MjZ9.3FWq2wZVZQprkQ3fVHdnpgeewjz1YzjNyFE6tAEOVXM';
+
+      // Initialisation complète du Viewer 3D
       const viewer = new Cesium.Viewer('cesiumContainer', {
         sceneModePicker: false,
         baseLayerPicker: false
       });
 
-      // Intégration sécurisée de votre fichier de carte Selarian.kmz
+      // Chargement fluide du fichier Selarian.kmz situé à la racine de votre dépôt
       Cesium.KmlDataSource.load('./Selarian.kmz', {
         camera: viewer.scene.camera,
         canvas: viewer.scene.canvas
-      }).then(function(dataSource) {
+      }).then((dataSource) => {
         viewer.dataSources.add(dataSource);
         viewer.zoomTo(dataSource);
-      }).catch(function(error) {
-        console.error("Erreur d'ouverture du fichier Selarian.kmz :", error);
+      }).catch((error) => {
+        console.error("Erreur de lecture du fichier Selarian.kmz :", error);
       });
 
     });
