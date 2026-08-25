@@ -5,49 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Selarian - Carte Interactive</title>
   
-  <!-- 1. Fichiers de base Leaflet -->
-  <link rel="stylesheet" href="https://cloudflare.com" />
-  <script src="https://cloudflare.com"></script>
-  
-  <!-- 2. Plugin Leaflet-KMZ durci (URL absolue sans risque de 404) -->
+  <!-- Chargement des bibliothèques via des liens alternatifs ultra-rapides -->
+  <link rel="stylesheet" href="https://jsdelivr.net" />
+  <script src="https://jsdelivr.net"></script>
   <script src="https://jsdelivr.net"></script>
 
-  
-  <!-- 2. Chargement du plugin pour lire le format KMZ de Google Earth -->
-  <script src="https://unpkg.com"></script>
-
   <style>
-    /* Force la carte à occuper la totalité de l'écran du navigateur */
     html, body, #map { 
       width: 100%; 
       height: 100%; 
       margin: 0; 
       padding: 0; 
-      background-color: #111111; /* Fond gris foncé esthétique */
+      background-color: #111111; 
     }
   </style>
 </head>
 <body>
 
-  <!-- Le conteneur HTML où la carte va s'injecter -->
   <div id="map"></div>
 
   <script>
-    // 3. Initialisation de la carte Leaflet (vide au départ)
-    // Le premier paramètre [0, 0] est le centre, le '2' est le niveau de zoom global
-    var map = L.map('map').setView([0, 0], 2);
+    // On attend que TOUTE la page et les scripts soient chargés à 100% dans le navigateur
+    window.addEventListener('load', function() {
+      
+      // Sécurité si Leaflet a été bloqué par un pare-feu
+      if (typeof L === 'undefined') {
+        console.error("Erreur : La bibliothèque Leaflet n'a pas pu être téléchargée par le réseau.");
+        return;
+      }
 
-    // 4. Configuration du lecteur de fichier KMZ
-    var kmz = L.kmzLayer().addTo(map);
+      // Initialisation de la carte plate
+      var map = L.map('map').setView([0, 0], 2);
 
-    // 5. Chargement de VOTRE fichier de carte
-    // IMPORTANT : Si votre fichier sur GitHub s'appelle 'selarian.kmz' (minuscule), modifiez cette ligne en './selarian.kmz'
-    kmz.load('./Selarian.kmz');
+      // Configuration du module KMZ
+      var kmz = L.kmzLayer().addTo(map);
 
-    // 6. Centrage automatique de la caméra
-    // Dès que Leaflet a fini de lire votre fichier, il zoome tout seul sur votre univers fictif
-    kmz.on('loaded', function(e) {
-      map.fitBounds(e.layer.getBounds());
+      // Chargement de votre fichier
+      kmz.load('./Selarian.kmz');
+
+      // Recentrage automatique au chargement
+      kmz.on('loaded', function(e) {
+        map.fitBounds(e.layer.getBounds());
+        console.log("Selarian.kmz chargé avec succès !");
+      });
+
     });
   </script>
 </body>
