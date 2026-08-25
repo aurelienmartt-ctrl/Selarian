@@ -3,12 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Selarian - Carte Interactive</title>
+  <title>Selarian - Carte Interactive Locale</title>
   
-  <!-- Chargement des bibliothèques via des liens alternatifs ultra-rapides -->
-  <link rel="stylesheet" href="https://jsdelivr.net" />
-  <script src="https://jsdelivr.net"></script>
-  <script src="https://jsdelivr.net"></script>
+  <!-- Chargement du script stocké directement sur VOTRE dépôt GitHub -->
+  <script src="./leaflet.js"></script>
 
   <style>
     html, body, #map { 
@@ -25,30 +23,16 @@
   <div id="map"></div>
 
   <script>
-    // On attend que TOUTE la page et les scripts soient chargés à 100% dans le navigateur
-    window.addEventListener('load', function() {
+    window.addEventListener('DOMContentLoaded', function() {
       
-      // Sécurité si Leaflet a été bloqué par un pare-feu
+      // Vérification de sécurité locale
       if (typeof L === 'undefined') {
-        console.error("Erreur : La bibliothèque Leaflet n'a pas pu être téléchargée par le réseau.");
+        console.error("Erreur critique : Le fichier leaflet.js local n'a pas pu s'exécuter.");
         return;
       }
 
-      // Initialisation de la carte plate
+      // Initialisation de la carte locale
       var map = L.map('map').setView([0, 0], 2);
-
-      // Configuration du module KMZ
-      var kmz = L.kmzLayer().addTo(map);
-
-      // Chargement de votre fichier
-      kmz.load('./Selarian.kmz');
-
-      // Recentrage automatique au chargement
-      kmz.on('loaded', function(e) {
-        map.fitBounds(e.layer.getBounds());
-        console.log("Selarian.kmz chargé avec succès !");
-      });
-
     });
   </script>
 </body>
