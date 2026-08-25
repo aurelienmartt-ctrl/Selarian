@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Selarian - Carte Interactive Locale</title>
+  <title>Selarian - Carte Interactive</title>
   
-  <!-- Chargement du script stocké directement sur VOTRE dépôt GitHub -->
+  <link rel="stylesheet" href="./leaflet.css" />
+  <!-- On charge la base locale que vous aviez validée -->
   <script src="./leaflet.js"></script>
 
   <style>
@@ -14,8 +15,9 @@
       height: 100%; 
       margin: 0; 
       padding: 0; 
-      background-color: #111111; 
+      background-color: #0b0b0d; 
     }
+    .custom-popup { font-family: sans-serif; color: #333; }
   </style>
 </head>
 <body>
@@ -25,14 +27,15 @@
   <script>
     window.addEventListener('DOMContentLoaded', function() {
       
-      // Vérification de sécurité locale
-      if (typeof L === 'undefined') {
-        console.error("Erreur critique : Le fichier leaflet.js local n'a pas pu s'exécuter.");
-        return;
-      }
+      // Initialisation du système visuel autonome
+      // Au lieu de charger le KMZ bloqué par le DNS, on utilise l'affichage direct
+      const map = L.map('map').setView([0, 0], 2);
 
-      // Initialisation de la carte locale
-      var map = L.map('map').setView([0, 0], 2);
+      console.log("Système de secours activé.");
+      
+      // Pour afficher votre carte sans intermédiaire :
+      // Si vous avez l'image JPG/PNG de votre monde sur votre ordinateur, 
+      // téléversez-la sur GitHub sous le nom "carte.png" puis dites-le moi.
     });
   </script>
 </body>
