@@ -3,16 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Selarian 3D</title>
+  <title>Selarian - Carte Interactive</title>
+  
+  <!-- 1. Chargement des fichiers officiels de Leaflet (Légers et acceptés partout) -->
+  <link rel="stylesheet" href="https://cloudflare.com" />
+  <script src="https://cloudflare.com"></script>
+  
+  <!-- 2. Chargement du plugin pour lire le format KMZ de Google Earth -->
+  <script src="https://unpkg.com"></script>
+
   <style>
-    /* Supprime les marges et force le cadre à prendre tout l'écran */
-    html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
-    iframe { width: 100%; height: 100%; border: none; }
+    /* Force la carte à occuper la totalité de l'écran du navigateur */
+    html, body, #map { 
+      width: 100%; 
+      height: 100%; 
+      margin: 0; 
+      padding: 0; 
+      background-color: #111111; /* Fond gris foncé esthétique */
+    }
   </style>
 </head>
 <body>
 
-  <!-- REMPLACEZ l'adresse ci-dessous par l'URL de partage exacte fournie par Cesium ion -->
-  <iframe src="https://sandcastle.cesium.com/#c=bZFbc9owEIX/isZPZCYjYlPT0kKmKZBEFJvhEoM9fhGyCPJFciQZF3fy3zvG0PSSx939ztFZbbsNHiTmGgypYkU2WQJMCFUKaAGOopCACQ6wUlSrkDcMRILDiO5wkeq7E7wSCeVgAEKDHif77QNhMzZBTxUyXYYU4gubDFEXJfnGG056kB4nxday42CJuiidBFvLnbqWU/neQvvrqPA8xKbDyUv0kLAZQ6Yzeuo4VdJxlzdlMFrE09Ui8a259lff9s7STN14XDrVPgsyZDvWvNbmwRB13RH54VTErGvScepQInpclKQSh6l1X+KlHQcbN4/WN4Vv9TRiJfM3XoJiwaK1nQTrIN9mXrKxFmmQ3Zvbx8bb38zZLB53ZiNizla+7cRBD3bu1y9WGXjBPJfJvLPzHiOeP1NaxpXpV7F7vB939d145m2c0PgS8pATwZUGB0ZLKsEAcFqejwC9U68VGuRUDwXXmHEqQ+PqpNTyCH6GHIDGQlIlCkkoGABcYna5ZX2nxXkEd1Jkd/UZUdSyTfvjp96H2utiEWGNl++afM/S0e8hTAWOWpf3rpsQABCcUYk/n3eBilBOYdO8vhD8gNV/RN08Ea9NmOblM/SWSUEcRa23+h24EiJbiX+YV0CwJnvQolIKefX2ZyKtV3k+92sy5Ma10Vf6mNLbmvrKslxIDQqZtiBsa5rlKdZUtbcFSaiGRKla129fJP2IHQCLBu8cDZAUKzUIjV2RpktW0dC47bcjdvhLVn8t48+zA5UpPobGKUZ/b95OmwGEsN/em7XmP60WIt1i+YfvLw
+  <!-- Le conteneur HTML où la carte va s'injecter -->
+  <div id="map"></div>
+
+  <script>
+    // 3. Initialisation de la carte Leaflet (vide au départ)
+    // Le premier paramètre [0, 0] est le centre, le '2' est le niveau de zoom global
+    var map = L.map('map').setView([0, 0], 2);
+
+    // 4. Configuration du lecteur de fichier KMZ
+    var kmz = L.kmzLayer().addTo(map);
+
+    // 5. Chargement de VOTRE fichier de carte
+    // IMPORTANT : Si votre fichier sur GitHub s'appelle 'selarian.kmz' (minuscule), modifiez cette ligne en './selarian.kmz'
+    kmz.load('./Selarian.kmz');
+
+    // 6. Centrage automatique de la caméra
+    // Dès que Leaflet a fini de lire votre fichier, il zoome tout seul sur votre univers fictif
+    kmz.on('loaded', function(e) {
+      map.fitBounds(e.layer.getBounds());
+    });
+  </script>
 </body>
 </html>
